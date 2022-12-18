@@ -136,11 +136,20 @@
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="selectPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="mBn-la-cqn">
+                                        <rect key="frame" x="50" y="231" width="275" height="163"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="163" id="aPW-P5-csI"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="mBn-la-cqn" secondAttribute="trailing" constant="50" id="0P6-nJ-Os7"/>
                                     <constraint firstItem="NpT-Bd-tdA" firstAttribute="top" secondItem="hPJ-7F-mhh" secondAttribute="top" id="5Cg-QY-taq"/>
                                     <constraint firstItem="od0-eu-Dmf" firstAttribute="top" secondItem="NpT-Bd-tdA" secondAttribute="bottom" constant="20" id="ABk-GB-8oW"/>
+                                    <constraint firstItem="mBn-la-cqn" firstAttribute="leading" secondItem="hPJ-7F-mhh" secondAttribute="leading" constant="50" id="LrF-PK-byI"/>
+                                    <constraint firstItem="mBn-la-cqn" firstAttribute="top" secondItem="od0-eu-Dmf" secondAttribute="bottom" constant="33" id="TsV-11-43g"/>
                                     <constraint firstItem="od0-eu-Dmf" firstAttribute="leading" secondItem="hPJ-7F-mhh" secondAttribute="leading" constant="50" id="bQG-qW-cs2"/>
                                     <constraint firstItem="NpT-Bd-tdA" firstAttribute="leading" secondItem="hPJ-7F-mhh" secondAttribute="leading" constant="50" id="dbg-or-sCJ"/>
                                     <constraint firstAttribute="trailing" secondItem="od0-eu-Dmf" secondAttribute="trailing" constant="50" id="fIE-bg-A1z"/>
@@ -184,6 +193,7 @@
                     <navigationItem key="navigationItem" id="Cgy-mP-7C9"/>
                     <connections>
                         <outlet property="dateLabel" destination="NpT-Bd-tdA" id="dBF-Ey-pCh"/>
+                        <outlet property="memoryImageView" destination="mBn-la-cqn" id="I5H-pT-2sH"/>
                         <outlet property="sentenceTextView" destination="od0-eu-Dmf" id="USf-aV-cIb"/>
                         <outlet property="toolBarButtonItem" destination="KiO-Qo-MQV" id="Dni-FF-T8f"/>
                     </connections>
@@ -215,6 +225,7 @@
         <image name="arrowshape.left.fill" catalog="system" width="128" height="104"/>
         <image name="arrowshape.right.fill" catalog="system" width="128" height="104"/>
         <image name="landscape" width="1440" height="2880"/>
+        <image name="selectPhoto" width="1146" height="675"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

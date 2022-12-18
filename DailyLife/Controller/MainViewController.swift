@@ -15,10 +15,16 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var toolBarButtonItem: UIBarButtonItem!
     
+    @IBOutlet weak var memoryImageView: UIImageView!
+    
     var daysNumberFromToday = 0
     var idString = String()
     
     var isEditMode = false
+    
+    let defaultImage = UIImage(named: "selectPhoto")
+    
+    var currentText = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,11 +44,14 @@ class MainViewController: UIViewController {
     }
     
     @objc func rightBarButtonItemTapped() {
+        
         if isEditMode == false {
             daysNumberFromToday += 1
             changeDateLabelText()
         } else {
+            //保存ボタン押下時
             saveData()
+            navigationItem.titleView = nil
             print("rightBarButton保存！")
             isEditMode = false
             sentenceTextView.resignFirstResponder()
@@ -51,11 +60,27 @@ class MainViewController: UIViewController {
             self.navigationItem.rightBarButtonItem?.title = "次の日"
             self.navigationItem.leftBarButtonItem?.isHidden = false
         }
+        
     }
     
     @objc func leftBarButtonItemTapped() {
-        daysNumberFromToday -= 1
-        changeDateLabelText()
+        
+        if isEditMode == false {
+            daysNumberFromToday -= 1
+            changeDateLabelText()
+        } else {
+            //キャンセルボタン押下時
+            isEditMode = false
+            sentenceTextView.resignFirstResponder()
+            sentenceTextView.isEditable = false
+            toolBarButtonItem.title = "編集"
+            self.navigationItem.titleView = nil
+            self.navigationItem.rightBarButtonItem?.title = "次の日"
+            self.navigationItem.leftBarButtonItem?.title = "前の日"
+            self.navigationItem.leftBarButtonItem?.tintColor = .tintColor
+            self.sentenceTextView.text = currentText
+        }
+        
     }
     
     private func changeDateLabelText() {
@@ -99,14 +124,31 @@ class MainViewController: UIViewController {
     @IBAction func toolBarItemTapped(_ sender: UIBarButtonItem) {
         
         if isEditMode == false {
+            //編集ボタン押下時
+            if let dateSentence = sentenceTextView.text {
+                self.currentText = dateSentence
+            }
+            let sampleButton = UIButton(type: .system)
+            sampleButton.frame = CGRect(x: 0, y: 0, width: 60, height: 30)
+            sampleButton.backgroundColor = UIColor.clear
+            sampleButton.setTitle("写真を選択", for: .normal)
+            sampleButton.titleLabel?.font = UIFont.systemFont(ofSize: 17.0)
+            sampleButton.setTitleColor(UIColor.tintColor, for: .normal)
+//            sampleButton.layer.cornerRadius = 10
+            sampleButton.addTarget(self, action: #selector(centerNavigationItemTapped), for: .touchUpInside)
+            
+            navigationItem.titleView = sampleButton
             sender.title = "保存"
             self.navigationItem.rightBarButtonItem?.title = "保存"
-            self.navigationItem.leftBarButtonItem?.isHidden = true
+            self.navigationItem.leftBarButtonItem?.title = "キャンセル"
+            self.navigationItem.leftBarButtonItem?.tintColor = .red
             isEditMode = true
             sentenceTextView.isEditable = true
             sentenceTextView.becomeFirstResponder()
         } else {
+            //閲覧モード
             saveData()
+            navigationItem.titleView = nil
             isEditMode = false
             sender.title = "編集"
             self.navigationItem.rightBarButtonItem?.title = "次の日"
@@ -114,6 +156,10 @@ class MainViewController: UIViewController {
             sentenceTextView.isEditable = false
             sentenceTextView.resignFirstResponder()
         }
+    }
+    
+    @objc func centerNavigationItemTapped() {
+        
     }
     
     @objc func saveData() {
@@ -132,6 +178,7 @@ class MainViewController: UIViewController {
         }
         
     }
+    
     
     @IBAction func presentData(_ sender: Any) {
         
