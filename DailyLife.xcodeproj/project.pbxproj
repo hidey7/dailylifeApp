@@ -14,6 +14,9 @@
 		C106F83D2944B7080058E8D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C106F83C2944B7080058E8D6 /* Assets.xcassets */; };
 		C106F8402944B7080058E8D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C106F83E2944B7080058E8D6 /* LaunchScreen.storyboard */; };
 		C168A2FA29475049004DA11A /* DailyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C168A2F929475049004DA11A /* DailyData.swift */; };
+		C1CA63AB294E89E7000BE9F9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CA63AA294E89E7000BE9F9 /* MainViewController.swift */; };
+		C1CA63AD294EC32B000BE9F9 /* PlaceTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CA63AC294EC32B000BE9F9 /* PlaceTextView.swift */; };
+		C1CA63AF294EC33C000BE9F9 /* PlaceTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1CA63AE294EC33C000BE9F9 /* PlaceTextView.xib */; };
 		F5C2AFEA47EEADEBC13853FA /* Pods_DailyLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D134C9F9B47DA824D80092 /* Pods_DailyLife.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +31,9 @@
 		C106F83F2944B7080058E8D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C106F8412944B7080058E8D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C168A2F929475049004DA11A /* DailyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyData.swift; sourceTree = "<group>"; };
+		C1CA63AA294E89E7000BE9F9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		C1CA63AC294EC32B000BE9F9 /* PlaceTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTextView.swift; sourceTree = "<group>"; };
+		C1CA63AE294EC33C000BE9F9 /* PlaceTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceTextView.xib; sourceTree = "<group>"; };
 		CA656AF173D505E41D3407B3 /* Pods-DailyLife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyLife.release.xcconfig"; path = "Target Support Files/Pods-DailyLife/Pods-DailyLife.release.xcconfig"; sourceTree = "<group>"; };
 		FDBBB07D45C3CFDBC9D747DC /* Pods-DailyLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyLife.debug.xcconfig"; path = "Target Support Files/Pods-DailyLife/Pods-DailyLife.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,6 +110,8 @@
 			children = (
 				C106F83E2944B7080058E8D6 /* LaunchScreen.storyboard */,
 				C106F8392944B7060058E8D6 /* Main.storyboard */,
+				C1CA63AC294EC32B000BE9F9 /* PlaceTextView.swift */,
+				C1CA63AE294EC33C000BE9F9 /* PlaceTextView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -114,6 +122,7 @@
 				C106F8372944B7060058E8D6 /* ViewController.swift */,
 				C106F8332944B7060058E8D6 /* AppDelegate.swift */,
 				C106F8352944B7060058E8D6 /* SceneDelegate.swift */,
+				C1CA63AA294E89E7000BE9F9 /* MainViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -181,6 +190,7 @@
 				C106F8402944B7080058E8D6 /* LaunchScreen.storyboard in Resources */,
 				C106F83D2944B7080058E8D6 /* Assets.xcassets in Resources */,
 				C106F83B2944B7060058E8D6 /* Main.storyboard in Resources */,
+				C1CA63AF294EC33C000BE9F9 /* PlaceTextView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,7 +246,9 @@
 				C106F8382944B7060058E8D6 /* ViewController.swift in Sources */,
 				C106F8342944B7060058E8D6 /* AppDelegate.swift in Sources */,
 				C106F8362944B7060058E8D6 /* SceneDelegate.swift in Sources */,
+				C1CA63AD294EC32B000BE9F9 /* PlaceTextView.swift in Sources */,
 				C168A2FA29475049004DA11A /* DailyData.swift in Sources */,
+				C1CA63AB294E89E7000BE9F9 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
