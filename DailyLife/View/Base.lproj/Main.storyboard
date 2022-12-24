@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ama-aF-qud">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dNH-jP-QT5">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -99,12 +99,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="465" y="3"/>
+            <point key="canvasLocation" x="1012" y="3"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="Jbl-IA-7QJ">
             <objects>
-                <viewController id="7nb-WO-220" customClass="MainViewController" customModule="DailyLife" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7nb-WO-220" customClass="MainViewController" customModule="DailyLife" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hi0-Lg-LVc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -113,7 +113,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hPJ-7F-mhh">
-                                <rect key="frame" x="0.0" y="91" width="375" height="687"/>
+                                <rect key="frame" x="0.0" y="47" width="375" height="731"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="○月○日" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NpT-Bd-tdA">
                                         <rect key="frame" x="50" y="0.0" width="275" height="50"/>
@@ -131,7 +131,6 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="Edw-Mo-5JQ"/>
                                         </constraints>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -177,7 +176,6 @@
                         <viewLayoutGuide key="safeArea" id="4ie-fo-eVI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="hPJ-7F-mhh" firstAttribute="top" secondItem="4ie-fo-eVI" secondAttribute="top" id="5jY-uZ-97M"/>
                             <constraint firstItem="Hzm-Yj-P2q" firstAttribute="top" secondItem="Hi0-Lg-LVc" secondAttribute="top" id="AU4-7P-yaT"/>
                             <constraint firstItem="4ie-fo-eVI" firstAttribute="trailing" secondItem="Hzm-Yj-P2q" secondAttribute="trailing" id="CP2-DI-9dL"/>
                             <constraint firstItem="hPJ-7F-mhh" firstAttribute="leading" secondItem="4ie-fo-eVI" secondAttribute="leading" id="O8v-cN-7UM"/>
@@ -185,12 +183,12 @@
                             <constraint firstItem="cDe-a7-J0u" firstAttribute="leading" secondItem="Hi0-Lg-LVc" secondAttribute="leading" id="bK7-rH-U7g"/>
                             <constraint firstAttribute="trailing" secondItem="cDe-a7-J0u" secondAttribute="trailing" id="lMz-8M-C43"/>
                             <constraint firstItem="4ie-fo-eVI" firstAttribute="trailing" secondItem="hPJ-7F-mhh" secondAttribute="trailing" id="loP-Bl-KoT"/>
+                            <constraint firstItem="hPJ-7F-mhh" firstAttribute="top" secondItem="4ie-fo-eVI" secondAttribute="top" id="p3B-ru-e0z"/>
                             <constraint firstItem="Hzm-Yj-P2q" firstAttribute="leading" secondItem="4ie-fo-eVI" secondAttribute="leading" id="qGT-0U-BmR"/>
                             <constraint firstItem="4ie-fo-eVI" firstAttribute="bottom" secondItem="hPJ-7F-mhh" secondAttribute="bottom" id="vlj-hM-Czy"/>
                             <constraint firstItem="4ie-fo-eVI" firstAttribute="bottom" secondItem="cDe-a7-J0u" secondAttribute="bottom" id="xe9-tr-aWG"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Cgy-mP-7C9"/>
                     <connections>
                         <outlet property="dateLabel" destination="NpT-Bd-tdA" id="dBF-Ey-pCh"/>
                         <outlet property="memoryImageView" destination="mBn-la-cqn" id="I5H-pT-2sH"/>
@@ -200,25 +198,35 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4xb-IV-deO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3301.5999999999999" y="2.9556650246305418"/>
+            <point key="canvasLocation" x="4228" y="2.9556650246305418"/>
+        </scene>
+        <!--Infinite Page View Controller-->
+        <scene sceneID="4OW-Pz-doo">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="none" id="Klx-IO-qE6" customClass="InfinitePageViewController" customModule="DailyLife" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="fD4-Ie-aI5"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s79-vM-SzX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3698.4000000000001" y="767.73399014778329"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="oFe-Xn-a7R">
+        <scene sceneID="LKl-of-1Dg">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ama-aF-qud" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dNH-jP-QT5" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lbk-ux-Fsp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="l1A-nW-3lQ">
                         <rect key="frame" x="0.0" y="47" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="7nb-WO-220" kind="relationship" relationship="rootViewController" id="B0v-Gx-7jI"/>
+                        <segue destination="Klx-IO-qE6" kind="relationship" relationship="rootViewController" id="XOs-1J-p5q"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Hbd-3O-hcb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UGv-Ha-b7e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2359.1999999999998" y="2.9556650246305418"/>
+            <point key="canvasLocation" x="2756" y="767.73399014778329"/>
         </scene>
     </scenes>
     <resources>

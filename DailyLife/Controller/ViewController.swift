@@ -23,9 +23,6 @@ class ViewController: UIViewController, UITextViewDelegate {
         
         overrideUserInterfaceStyle = .light
         
-        //        let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: .now)
-        //        dateLabel.text = "\(dateComponents.year!)年\(dateComponents.month!)月\(dateComponents.day!)日"
-        //        sentenceTextView.text = "ここに文書を書きます。"
         changeDateLabelText()
         
     }

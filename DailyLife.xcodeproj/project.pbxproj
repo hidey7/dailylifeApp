@@ -13,7 +13,9 @@
 		C106F83B2944B7060058E8D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C106F8392944B7060058E8D6 /* Main.storyboard */; };
 		C106F83D2944B7080058E8D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C106F83C2944B7080058E8D6 /* Assets.xcassets */; };
 		C106F8402944B7080058E8D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C106F83E2944B7080058E8D6 /* LaunchScreen.storyboard */; };
+		C14C26412951B91400167D70 /* DailydataBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14C26402951B91400167D70 /* DailydataBrain.swift */; };
 		C168A2FA29475049004DA11A /* DailyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C168A2F929475049004DA11A /* DailyData.swift */; };
+		C1BA740729517EB800E8F734 /* InfinitePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BA740629517EB800E8F734 /* InfinitePageViewController.swift */; };
 		C1CA63AB294E89E7000BE9F9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CA63AA294E89E7000BE9F9 /* MainViewController.swift */; };
 		C1CA63AD294EC32B000BE9F9 /* PlaceTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CA63AC294EC32B000BE9F9 /* PlaceTextView.swift */; };
 		C1CA63AF294EC33C000BE9F9 /* PlaceTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1CA63AE294EC33C000BE9F9 /* PlaceTextView.xib */; };
@@ -30,7 +32,9 @@
 		C106F83C2944B7080058E8D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C106F83F2944B7080058E8D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C106F8412944B7080058E8D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C14C26402951B91400167D70 /* DailydataBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailydataBrain.swift; sourceTree = "<group>"; };
 		C168A2F929475049004DA11A /* DailyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyData.swift; sourceTree = "<group>"; };
+		C1BA740629517EB800E8F734 /* InfinitePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinitePageViewController.swift; sourceTree = "<group>"; };
 		C1CA63AA294E89E7000BE9F9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C1CA63AC294EC32B000BE9F9 /* PlaceTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTextView.swift; sourceTree = "<group>"; };
 		C1CA63AE294EC33C000BE9F9 /* PlaceTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceTextView.xib; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				C168A2F929475049004DA11A /* DailyData.swift */,
+				C14C26402951B91400167D70 /* DailydataBrain.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -123,6 +128,7 @@
 				C106F8332944B7060058E8D6 /* AppDelegate.swift */,
 				C106F8352944B7060058E8D6 /* SceneDelegate.swift */,
 				C1CA63AA294E89E7000BE9F9 /* MainViewController.swift */,
+				C1BA740629517EB800E8F734 /* InfinitePageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -243,9 +249,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C14C26412951B91400167D70 /* DailydataBrain.swift in Sources */,
 				C106F8382944B7060058E8D6 /* ViewController.swift in Sources */,
 				C106F8342944B7060058E8D6 /* AppDelegate.swift in Sources */,
 				C106F8362944B7060058E8D6 /* SceneDelegate.swift in Sources */,
+				C1BA740729517EB800E8F734 /* InfinitePageViewController.swift in Sources */,
 				C1CA63AD294EC32B000BE9F9 /* PlaceTextView.swift in Sources */,
 				C168A2FA29475049004DA11A /* DailyData.swift in Sources */,
 				C1CA63AB294E89E7000BE9F9 /* MainViewController.swift in Sources */,

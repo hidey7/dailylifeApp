@@ -7,6 +7,11 @@
 
 import UIKit
 import RealmSwift
+import PhotosUI
+
+protocol MainViewControllerDelegate {
+    func mainViewControllerToolbarCenterButtonTapped()
+}
 
 class MainViewController: UIViewController {
     
@@ -17,165 +22,60 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var memoryImageView: UIImageView!
     
-    var daysNumberFromToday = 0
-    var idString = String()
+    var delegate: MainViewControllerDelegate?
     
-    var isEditMode = false
+    var dateString = String()
     
-    let defaultImage = UIImage(named: "selectPhoto")
+    var photo: UIImage?
     
-    var currentText = String()
+    var sentence: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         overrideUserInterfaceStyle = .light
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "次の日", style: .plain, target: self, action: #selector(rightBarButtonItemTapped))
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "前の日", style: .plain, target: self, action: #selector(leftBarButtonItemTapped))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.dateLabel.text = dateString
         
-        changeDateLabelText()
+        if let sentence = sentence {
+            self.sentenceTextView.text = sentence
+            self.sentenceTextView.hidePlaceHolder()
+        } else {
+            self.sentenceTextView.text = ""
+            self.sentenceTextView.presentPlaceHolder()
+            self.sentenceTextView.placeHolder = "今日は\(dateString)です。"
+        }
+             
+        if let image = photo {
+            self.memoryImageView.image = image
+        }
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.sentenceTextView.resignFirstResponder()
-        print(sentenceTextView.text.isEmpty)
     }
     
-    @objc func rightBarButtonItemTapped() {
-        
-        if isEditMode == false {
-            daysNumberFromToday += 1
-            changeDateLabelText()
-        } else {
-            //保存ボタン押下時
-            saveData()
-            navigationItem.titleView = nil
-            print("rightBarButton保存！")
-            isEditMode = false
-            sentenceTextView.resignFirstResponder()
-            sentenceTextView.isEditable = false
-            toolBarButtonItem.title = "編集"
-            self.navigationItem.rightBarButtonItem?.title = "次の日"
-            self.navigationItem.leftBarButtonItem?.isHidden = false
-        }
-        
-    }
-    
-    @objc func leftBarButtonItemTapped() {
-        
-        if isEditMode == false {
-            daysNumberFromToday -= 1
-            changeDateLabelText()
-        } else {
-            //キャンセルボタン押下時
-            isEditMode = false
-            sentenceTextView.resignFirstResponder()
-            sentenceTextView.isEditable = false
-            toolBarButtonItem.title = "編集"
-            self.navigationItem.titleView = nil
-            self.navigationItem.rightBarButtonItem?.title = "次の日"
-            self.navigationItem.leftBarButtonItem?.title = "前の日"
-            self.navigationItem.leftBarButtonItem?.tintColor = .tintColor
-            self.sentenceTextView.text = currentText
-        }
-        
-    }
-    
-    private func changeDateLabelText() {
-        
-        let today = Date()
-        let modifiedDate = Calendar.current.date(byAdding: .day, value: daysNumberFromToday, to: today)
-        let dateFormatter = DateFormatter()
-        dateFormatter.calendar = Calendar(identifier: .gregorian)
-        dateFormatter.locale = Locale(identifier: "ja_JP")
-        dateFormatter.dateStyle = .long
-        let dateString = dateFormatter.string(from: modifiedDate!)
-        setIdString(modifiedDate: modifiedDate!)
-        
-        let realm = try! Realm()
-        if realm.object(ofType: DailyData.self, forPrimaryKey: idString) == nil {
-            dateLabel.text = dateString
-            sentenceTextView.text = ""
-            sentenceTextView.presentPlaceHolder()
-            sentenceTextView.placeHolder = "今日は\(dateString)です"
-        } else {
-            sentenceTextView.hidePlaceHolder()
-            sentenceTextView.placeHolder = "今日は\(dateString)です"
-            let savedDate = realm.object(ofType: DailyData.self, forPrimaryKey: idString)
-            dateLabel.text = savedDate?.date
-            sentenceTextView.text = savedDate?.sentence
-        }
-        
-    }
-    
-    private func setIdString(modifiedDate: Date) {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.calendar = Calendar(identifier: .gregorian)
-        dateFormatter.locale = Locale(identifier: "ja_JP")
-        dateFormatter.dateStyle = .long
-        dateFormatter.dateFormat = "yyyyMd"
-        self.idString = dateFormatter.string(from: modifiedDate)
-        
-    }
     
     @IBAction func toolBarItemTapped(_ sender: UIBarButtonItem) {
         
-        if isEditMode == false {
-            //編集ボタン押下時
-            if let dateSentence = sentenceTextView.text {
-                self.currentText = dateSentence
-            }
-            let sampleButton = UIButton(type: .system)
-            sampleButton.frame = CGRect(x: 0, y: 0, width: 60, height: 30)
-            sampleButton.backgroundColor = UIColor.clear
-            sampleButton.setTitle("写真を選択", for: .normal)
-            sampleButton.titleLabel?.font = UIFont.systemFont(ofSize: 17.0)
-            sampleButton.setTitleColor(UIColor.tintColor, for: .normal)
-//            sampleButton.layer.cornerRadius = 10
-            sampleButton.addTarget(self, action: #selector(centerNavigationItemTapped), for: .touchUpInside)
-            
-            navigationItem.titleView = sampleButton
-            sender.title = "保存"
-            self.navigationItem.rightBarButtonItem?.title = "保存"
-            self.navigationItem.leftBarButtonItem?.title = "キャンセル"
-            self.navigationItem.leftBarButtonItem?.tintColor = .red
-            isEditMode = true
-            sentenceTextView.isEditable = true
-            sentenceTextView.becomeFirstResponder()
-        } else {
-            //閲覧モード
-            saveData()
-            navigationItem.titleView = nil
-            isEditMode = false
-            sender.title = "編集"
-            self.navigationItem.rightBarButtonItem?.title = "次の日"
-            self.navigationItem.leftBarButtonItem?.isHidden = false
-            sentenceTextView.isEditable = false
-            sentenceTextView.resignFirstResponder()
-        }
+        delegate?.mainViewControllerToolbarCenterButtonTapped()
+        
     }
     
     @objc func centerNavigationItemTapped() {
         
-    }
-    
-    @objc func saveData() {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 1
+        configuration.filter = .images
         
-        let realm = try! Realm()
-        let dailyData = DailyData(date: dateLabel.text!, sentence: sentenceTextView.text!, id: idString)
-        if sentenceTextView.text.isEmpty == false && realm.object(ofType: DailyData.self, forPrimaryKey: idString) == nil {
-            try! realm.write {
-                realm.add(dailyData) //保存
-            }
-        } else {
-            let savedData = realm.object(ofType: DailyData.self, forPrimaryKey: idString)
-            try! realm.write {
-                savedData?.sentence = sentenceTextView.text //更新
-            }
-        }
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
         
     }
     
@@ -198,4 +98,26 @@ class MainViewController: UIViewController {
      }
      */
     
+}
+
+extension MainViewController: PHPickerViewControllerDelegate {
+
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+
+        picker.dismiss(animated: true)
+
+        if let firstItemProvider = results.first?.itemProvider {
+            if firstItemProvider.canLoadObject(ofClass: UIImage.self) {
+                firstItemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                    if let firstImage = image as? UIImage, let safeSelf = self {
+                        DispatchQueue.main.async {
+                            safeSelf.memoryImageView.image = firstImage
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
 }
