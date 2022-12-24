@@ -24,6 +24,8 @@ class InfinitePageViewController: UIPageViewController {
     
     let realm = try! Realm()
     
+    var justBeforeDaysNumberFromToday = Int()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +61,7 @@ class InfinitePageViewController: UIPageViewController {
         self.vcList = vcList
         self.setViewControllers([self.vcList[0]], direction: .forward, animated: true)
         self.dataSource = self
+        self.delegate = self
         
     }
     
@@ -347,6 +350,7 @@ extension InfinitePageViewController: UIPageViewControllerDataSource {
     //左にスワイプ(進む)
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         //1日前
+        justBeforeDaysNumberFromToday = daysNumberFromToday
         daysNumberFromToday -= 1
         setNowDateString()
         let nowIndex = self.vcList.firstIndex(of: viewController)
@@ -361,6 +365,7 @@ extension InfinitePageViewController: UIPageViewControllerDataSource {
     //右にスワイプ(戻る)
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         //1日後
+        justBeforeDaysNumberFromToday = daysNumberFromToday
         daysNumberFromToday += 1
         setNowDateString()
         let nowIndex = self.vcList.firstIndex(of: viewController)
@@ -375,3 +380,15 @@ extension InfinitePageViewController: UIPageViewControllerDataSource {
 }
 
 
+extension InfinitePageViewController: UIPageViewControllerDelegate {
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        
+        if !completed {
+            daysNumberFromToday = justBeforeDaysNumberFromToday
+            setNowDateString()
+        }
+        
+    }
+    
+}
