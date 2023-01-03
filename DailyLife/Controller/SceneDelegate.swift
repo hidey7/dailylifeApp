@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  DailyLife
-//
-//  Created by 始関秀弥 on 2022/12/10.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

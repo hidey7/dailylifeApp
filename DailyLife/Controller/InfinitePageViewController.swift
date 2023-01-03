@@ -13,7 +13,7 @@ class InfinitePageViewController: UIPageViewController {
     
     let realm = try! Realm()
     
-    var justBeforeDaysNumberFromToday = Int()
+    var justBeforeDaysCountFromToday = Int()
     
     var dailyBrain = DailyBrain()
     var dateBrain = DateBrain()
@@ -78,7 +78,7 @@ class InfinitePageViewController: UIPageViewController {
             
         } else {
             //保存ボタン押下時
-            saveDataWithRealm()
+            saveData()
             savePhoto()
             navigationItem.titleView = nil
             isEditMode = false
@@ -153,13 +153,6 @@ class InfinitePageViewController: UIPageViewController {
     }
     
     
-    private func setIdString(modifiedDate: Date) {
-        
-        self.idString = dateBrain.setIdString()
-        
-    }
-    
-    
 }
 
 extension InfinitePageViewController: MainViewControllerDelegate {
@@ -190,7 +183,7 @@ extension InfinitePageViewController: MainViewControllerDelegate {
             currentVC.sentenceTextView.becomeFirstResponder()
         } else {
             //保存ボタン押下時
-            saveDataWithRealm()
+            saveData()
             savePhoto()
             navigationItem.titleView = nil
             isEditMode = false
@@ -205,7 +198,7 @@ extension InfinitePageViewController: MainViewControllerDelegate {
         
     }
     
-    @objc func saveDataWithRealm() {
+    @objc func saveData() {
         
         let currentVC = self.vcList[currentIndex] as! MainViewController
         let dailyData = DailyData(date: currentVC.dateLabel.text!, sentence: currentVC.sentenceTextView.text, id: idString)
@@ -270,7 +263,7 @@ extension InfinitePageViewController: UIPageViewControllerDataSource {
     //左にスワイプ(進む)
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         //1日前
-        justBeforeDaysNumberFromToday = dateBrain.getDaysNumberFromToday()
+        justBeforeDaysCountFromToday = dateBrain.getDaysNumberFromToday()
         dateBrain.decrementDaysNumberFromToday()
         let nowIndex = self.vcList.firstIndex(of: viewController)
         let nextIndex = (nowIndex! + 1) % 3
@@ -284,7 +277,7 @@ extension InfinitePageViewController: UIPageViewControllerDataSource {
     //右にスワイプ(戻る)
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         //1日後
-        justBeforeDaysNumberFromToday = dateBrain.getDaysNumberFromToday()
+        justBeforeDaysCountFromToday = dateBrain.getDaysNumberFromToday()
         dateBrain.incrementDaysNumberFromToday()
         let nowIndex = self.vcList.firstIndex(of: viewController)
         let backIndex = (nowIndex! - 1 + 3) % 3
@@ -303,7 +296,7 @@ extension InfinitePageViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         if !completed {
-            dateBrain.restoreDaysNumberFromToday(justBeforeDaysNumberFromToday)
+            dateBrain.restoreDaysNumberFromToday(justBeforeDaysCountFromToday)
         }
         
     }

@@ -1,10 +1,3 @@
-//
-//  MainViewController.swift
-//  DailyLife
-//
-//  Created by 始関秀弥 on 2022/12/18.
-//
-
 import UIKit
 import RealmSwift
 import PhotosUI
@@ -67,18 +60,6 @@ class MainViewController: UIViewController {
         
     }
     
-    @objc func centerNavigationItemTapped() {
-        
-        var configuration = PHPickerConfiguration()
-        configuration.selectionLimit = 1
-        configuration.filter = .images
-        
-        let picker = PHPickerViewController(configuration: configuration)
-        picker.delegate = self
-        present(picker, animated: true)
-        
-    }
-    
     
     @IBAction func presentData(_ sender: Any) {
         
@@ -88,36 +69,5 @@ class MainViewController: UIViewController {
         
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
-}
-
-extension MainViewController: PHPickerViewControllerDelegate {
-
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-
-        picker.dismiss(animated: true)
-
-        if let firstItemProvider = results.first?.itemProvider {
-            if firstItemProvider.canLoadObject(ofClass: UIImage.self) {
-                firstItemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                    if let firstImage = image as? UIImage, let safeSelf = self {
-                        DispatchQueue.main.async {
-                            safeSelf.memoryImageView.image = firstImage
-                        }
-                    }
-                }
-            }
-        }
-
-    }
-
 }

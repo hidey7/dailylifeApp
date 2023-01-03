@@ -3,13 +3,13 @@ import Foundation
 
 struct DateBrain {
     
-    private var daysNumberFromToday = 0
+    private var daysCountFromToday = 0
     private var today = Date()
     private var dateFormatter = DateFormatter()
     
     func setNowDateString() -> String {
         
-        let modifiedDate = Calendar.current.date(byAdding: .day, value: daysNumberFromToday, to: today)
+        let modifiedDate = Calendar.current.date(byAdding: .day, value: daysCountFromToday, to: today)
         dateFormatter.dateStyle = .long
         dateFormatter.locale = Locale(identifier: "ja_JP")
         return dateFormatter.string(from: modifiedDate!)
@@ -18,7 +18,7 @@ struct DateBrain {
     
     func setIdString() -> String {
         
-        let modifiedDate = Calendar.current.date(byAdding: .day, value: daysNumberFromToday, to: today)
+        let modifiedDate = Calendar.current.date(byAdding: .day, value: daysCountFromToday, to: today)
         dateFormatter.calendar = Calendar(identifier: .gregorian)
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateStyle = .long
@@ -28,19 +28,19 @@ struct DateBrain {
     }
     
     func getDaysNumberFromToday() -> Int {
-        return daysNumberFromToday
+        return daysCountFromToday
     }
     
     mutating func restoreDaysNumberFromToday(_ previousValue: Int) {
-        self.daysNumberFromToday = previousValue
+        self.daysCountFromToday = previousValue
     }
     
     mutating func incrementDaysNumberFromToday() {
-        self.daysNumberFromToday += 1
+        self.daysCountFromToday += 1
     }
     
     mutating func decrementDaysNumberFromToday() {
-        self.daysNumberFromToday -= 1
+        self.daysCountFromToday -= 1
     }
     
 }
