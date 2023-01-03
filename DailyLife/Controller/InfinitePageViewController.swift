@@ -1,10 +1,3 @@
-//
-//  InfinitePageViewController.swift
-//  DailyLife
-//
-//  Created by 始関秀弥 on 2022/12/20.
-//
-
 import UIKit
 import RealmSwift
 import PhotosUI
@@ -12,25 +5,23 @@ import PhotosUI
 class InfinitePageViewController: UIPageViewController {
     
     private var vcList: [UIViewController] = []
-    var daysNumberFromToday = 0
     var currentIndex = 0
     var isEditMode = false
     var currentText = String()
     var idString = String()
     
-    let defaultImage = UIImage(named: "selectPhoto")
-    
-    var nowDateString = String()
     
     let realm = try! Realm()
     
     var justBeforeDaysNumberFromToday = Int()
     
+    var dailyBrain = DailyBrain()
+    var dateBrain = DateBrain()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         let tapGestureRecognizer = self.gestureRecognizers.filter{ $0 is UITapGestureRecognizer }.first as! UITapGestureRecognizer
         tapGestureRecognizer.isEnabled = false
         
@@ -51,10 +42,9 @@ class InfinitePageViewController: UIPageViewController {
         
         let vcList = [firstVC, secondVC, thirdVC]
         
-        setNowDateString()
-        firstVC.dateString = nowDateString
-        secondVC.dateString = nowDateString
-        thirdVC.dateString = nowDateString
+        firstVC.dateString = dateBrain.setNowDateString()
+        secondVC.dateString = dateBrain.setNowDateString()
+        thirdVC.dateString = dateBrain.setNowDateString()
         
         changeDateLabelTextAndMemoryImage(nextVC: firstVC)
         
@@ -67,7 +57,6 @@ class InfinitePageViewController: UIPageViewController {
     
     private func setupNavigationbar() {
         
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "次の日", style: .plain, target: self, action: #selector(rightBarButtonItemTapped))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "前の日", style: .plain, target: self, action: #selector(leftBarButtonItemTapped))
         navigationItem.title = nil
@@ -79,12 +68,11 @@ class InfinitePageViewController: UIPageViewController {
         
         if isEditMode == false {
             //次の日ボタン押下時
-            daysNumberFromToday += 1
-            setNowDateString()
+            dateBrain.incrementDaysNumberFromToday()
             currentIndex = (currentIndex + 1) % 3
             let nextIndex = currentIndex
             let nextVC = self.vcList[nextIndex] as! MainViewController
-            nextVC.dateString = self.nowDateString
+            nextVC.dateString = dateBrain.setNowDateString()
             changeDateLabelTextAndMemoryImage(nextVC: nextVC)
             self.setViewControllers([nextVC], direction: .forward, animated: true)
             
@@ -113,12 +101,11 @@ class InfinitePageViewController: UIPageViewController {
         let currentVC = vcList[currentIndex] as! MainViewController
         
         if isEditMode == false {
-            daysNumberFromToday -= 1
-            setNowDateString()
+            dateBrain.decrementDaysNumberFromToday()
             currentIndex = (currentIndex - 1 + 3) % 3
             let nextIndex = currentIndex
             let nextVC = self.vcList[nextIndex] as! MainViewController
-            nextVC.dateString = self.nowDateString
+            nextVC.dateString = dateBrain.setNowDateString()
             changeDateLabelTextAndMemoryImage(nextVC: nextVC)
             self.setViewControllers([nextVC], direction: .reverse, animated: true)
         } else {
@@ -152,79 +139,26 @@ class InfinitePageViewController: UIPageViewController {
     
     private func changeDateLabelTextAndMemoryImage(nextVC: MainViewController) {
         
-        let today = Date()
-        let modifiedDate = Calendar.current.date(byAdding: .day, value: daysNumberFromToday, to: today)
-        let dateFormatter = DateFormatter()
-        dateFormatter.calendar = Calendar(identifier: .gregorian)
-        dateFormatter.locale = Locale(identifier: "ja_JP")
-        dateFormatter.dateStyle = .long
-        setIdString(modifiedDate: modifiedDate!)
-        nextVC.photo = getMemoryImage()
+        self.idString = dateBrain.setIdString()
+        nextVC.photo = dailyBrain.getMemoryImage(self.idString)
         
-        if realm.object(ofType: DailyData.self, forPrimaryKey: idString) == nil {
+        guard let savedData = dailyBrain.getDailyData(nextVC, self.idString) else {
             nextVC.sentence = nil
-        } else {
-            let savedData = realm.object(ofType: DailyData.self, forPrimaryKey: idString)
-            nextVC.dateString = savedData!.date
-            nextVC.sentence = savedData?.sentence
+            return
         }
         
+        nextVC.dateString = savedData.date
+        nextVC.sentence = savedData.sentence
+       
     }
     
-    private func getMemoryImage() -> UIImage {
-        
-        let path = getFileURL().path()
-        if FileManager.default.fileExists(atPath: path) {
-            if let imageData = UIImage(contentsOfFile: path) {
-                return imageData
-            } else {
-                print("Failed to load the image.")
-            }
-        }
-        return defaultImage!
-    }
-    
-    private func getFileURL() -> URL {
-        
-        let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        return docDir.appendingPathComponent("\(idString).png")
-        
-    }
     
     private func setIdString(modifiedDate: Date) {
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.calendar = Calendar(identifier: .gregorian)
-        dateFormatter.locale = Locale(identifier: "ja_JP")
-        dateFormatter.dateStyle = .long
-        dateFormatter.dateFormat = "yyyyMd"
-        self.idString = dateFormatter.string(from: modifiedDate)
+        self.idString = dateBrain.setIdString()
         
     }
     
-    private func setNowDateString() {
-        
-        let today = Date()
-        let modifiedDate = Calendar.current.date(byAdding: .day, value: daysNumberFromToday, to: today)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.locale = Locale(identifier: "ja_JP")
-        self.nowDateString = dateFormatter.string(from: modifiedDate!)
-        
-    }
-    
-    
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
 
@@ -275,17 +209,8 @@ extension InfinitePageViewController: MainViewControllerDelegate {
         
         let currentVC = self.vcList[currentIndex] as! MainViewController
         let dailyData = DailyData(date: currentVC.dateLabel.text!, sentence: currentVC.sentenceTextView.text, id: idString)
-        if currentVC.sentenceTextView.text.isEmpty == false && realm.object(ofType: DailyData.self, forPrimaryKey: idString) == nil {
-            try! realm.write {
-                realm.add(dailyData) //保存
-                print("保存！")
-            }
-        } else {
-            let savedData = realm.object(ofType: DailyData.self, forPrimaryKey: idString)
-            try! realm.write {
-                savedData?.sentence = currentVC.sentenceTextView.text //更新
-                print("更新！")
-            }
+        if currentVC.sentenceTextView.text.isEmpty == false {
+            dailyBrain.saveDailyData(dailyData, self.idString)
         }
         
     }
@@ -296,13 +221,8 @@ extension InfinitePageViewController: MainViewControllerDelegate {
         
         let currentVC = self.vcList[currentIndex] as! MainViewController
         let imageView = currentVC.memoryImageView
-        if imageView!.image != defaultImage && imageView?.image != nil {
-            let imageData = imageView?.image?.pngData()
-            do {
-                try imageData?.write(to: getFileURL())
-            } catch {
-                print("Failed to save the image:", error)
-            }
+        if let image = imageView?.image {
+            dailyBrain.savePhoto(image, self.idString)
         }
         
     }
@@ -350,13 +270,12 @@ extension InfinitePageViewController: UIPageViewControllerDataSource {
     //左にスワイプ(進む)
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         //1日前
-        justBeforeDaysNumberFromToday = daysNumberFromToday
-        daysNumberFromToday -= 1
-        setNowDateString()
+        justBeforeDaysNumberFromToday = dateBrain.getDaysNumberFromToday()
+        dateBrain.decrementDaysNumberFromToday()
         let nowIndex = self.vcList.firstIndex(of: viewController)
         let nextIndex = (nowIndex! + 1) % 3
         let nextVC = self.vcList[nextIndex] as! MainViewController
-        nextVC.dateString = self.nowDateString
+        nextVC.dateString = dateBrain.setNowDateString()
         changeDateLabelTextAndMemoryImage(nextVC: nextVC)
         self.currentIndex = nextIndex
         return nextVC
@@ -365,13 +284,12 @@ extension InfinitePageViewController: UIPageViewControllerDataSource {
     //右にスワイプ(戻る)
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         //1日後
-        justBeforeDaysNumberFromToday = daysNumberFromToday
-        daysNumberFromToday += 1
-        setNowDateString()
+        justBeforeDaysNumberFromToday = dateBrain.getDaysNumberFromToday()
+        dateBrain.incrementDaysNumberFromToday()
         let nowIndex = self.vcList.firstIndex(of: viewController)
         let backIndex = (nowIndex! - 1 + 3) % 3
         let backVC = self.vcList[backIndex] as! MainViewController
-        backVC.dateString = self.nowDateString
+        backVC.dateString = dateBrain.setNowDateString()
         changeDateLabelTextAndMemoryImage(nextVC: backVC)
         self.currentIndex = backIndex
         return backVC
@@ -385,8 +303,7 @@ extension InfinitePageViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         if !completed {
-            daysNumberFromToday = justBeforeDaysNumberFromToday
-            setNowDateString()
+            dateBrain.restoreDaysNumberFromToday(justBeforeDaysNumberFromToday)
         }
         
     }

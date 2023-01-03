@@ -15,6 +15,7 @@
 		C106F8402944B7080058E8D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C106F83E2944B7080058E8D6 /* LaunchScreen.storyboard */; };
 		C14C26412951B91400167D70 /* DailydataBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14C26402951B91400167D70 /* DailydataBrain.swift */; };
 		C168A2FA29475049004DA11A /* DailyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C168A2F929475049004DA11A /* DailyData.swift */; };
+		C19E9C682963DC5200FEA717 /* DateBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19E9C672963DC5200FEA717 /* DateBrain.swift */; };
 		C1BA740729517EB800E8F734 /* InfinitePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BA740629517EB800E8F734 /* InfinitePageViewController.swift */; };
 		C1CA63AB294E89E7000BE9F9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CA63AA294E89E7000BE9F9 /* MainViewController.swift */; };
 		C1CA63AD294EC32B000BE9F9 /* PlaceTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CA63AC294EC32B000BE9F9 /* PlaceTextView.swift */; };
@@ -34,6 +35,7 @@
 		C106F8412944B7080058E8D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C14C26402951B91400167D70 /* DailydataBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailydataBrain.swift; sourceTree = "<group>"; };
 		C168A2F929475049004DA11A /* DailyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyData.swift; sourceTree = "<group>"; };
+		C19E9C672963DC5200FEA717 /* DateBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateBrain.swift; sourceTree = "<group>"; };
 		C1BA740629517EB800E8F734 /* InfinitePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinitePageViewController.swift; sourceTree = "<group>"; };
 		C1CA63AA294E89E7000BE9F9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C1CA63AC294EC32B000BE9F9 /* PlaceTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceTextView.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			children = (
 				C168A2F929475049004DA11A /* DailyData.swift */,
 				C14C26402951B91400167D70 /* DailydataBrain.swift */,
+				C19E9C672963DC5200FEA717 /* DateBrain.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				C1CA63AD294EC32B000BE9F9 /* PlaceTextView.swift in Sources */,
 				C168A2FA29475049004DA11A /* DailyData.swift in Sources */,
 				C1CA63AB294E89E7000BE9F9 /* MainViewController.swift in Sources */,
+				C19E9C682963DC5200FEA717 /* DateBrain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
